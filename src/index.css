@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0B1A33;
+  --color-navy-800: #12264A;
+  --color-navy-700: #1B3463;
+  --color-gold: #BF9449;
+  --color-gold-light: #D9B86A;
+  --color-bronze: #8A672A;
+  --color-bronze-dark: #6E5120;
+  --color-cream: #F7F2E8;
+  --color-cream-dark: #EDE5D5;
+  --color-ink: #1A1A1A;
+  --color-ink-soft: #3D3D3D;
+  --color-line: #D9CFBB;
+
+  --font-serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink font-sans antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  @apply font-serif text-navy;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+/* Visible, high-contrast focus for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+.eyebrow {
+  @apply font-sans text-sm font-semibold uppercase text-bronze;
+  letter-spacing: 0.14em;
+}
+
+.prose-sabal p + p { margin-top: 1rem; }
+.prose-sabal ul { margin-top: 0.75rem; padding-left: 1.4rem; list-style: disc; }
+.prose-sabal li + li { margin-top: 0.4rem; }
+
+/* Reveal-on-scroll: scroll-driven, no JavaScript; unsupported browsers show content as-is */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 28%;
+    }
+  }
+}
+@keyframes reveal-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Interactive cards and links */
+.card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(11,26,51,.10); border-color: var(--color-gold); }
+details > summary::-webkit-details-marker { display: none; }
+details[open] > div { animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px);} to { opacity: 1; transform: none;} }
